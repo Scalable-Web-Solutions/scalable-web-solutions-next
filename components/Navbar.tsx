@@ -51,9 +51,8 @@ export default function Navbar({ logo }: Props) {
 
   return (
     <header
-      className={`z-50 fixed top-0 left-0 right-0 bg-gradient-to-b from-violet-900/40 to-transparent overflow-x-hidden transition-transform duration-300 ${
-        visible ? "translate-y-0" : "-translate-y-full"
-      }`}
+      className={`z-50 fixed top-0 left-0 right-0 bg-gradient-to-b from-violet-900/40 to-transparent overflow-x-hidden transition-transform duration-300 ${visible ? "translate-y-0" : "-translate-y-full"
+        }`}
     >
       <div className="mx-auto max-w-7xl px-4 md:px-6 py-6 flex items-center justify-between">
         {/* Logo/Title */}
