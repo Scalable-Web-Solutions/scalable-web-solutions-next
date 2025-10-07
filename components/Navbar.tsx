@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
@@ -9,6 +9,8 @@ type Props = { logo: string };
 
 export default function Navbar({ logo }: Props) {
   const [open, setOpen] = useState(false);
+  const [visible, setVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -27,19 +29,32 @@ export default function Navbar({ logo }: Props) {
     [pathname, router]
   );
 
-  const gotoSelectVal = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
-    const sel = event.target.value;
-    if (sel.toLowerCase() === "atlas by scalable") {
-      window.location.href = "https://atlas.scalableweb.solutions";
-    } else {
-      // e.g. "Scalable Suite" -> "scalable suite" -> subdomain without spaces if desired
-      const sub = sel.toLowerCase().replace(/\s+/g, "");
-      window.location.href = `https://${sub}.scalableweb.solutions`;
-    }
-  }, []);
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY < lastScrollY) {
+        // Scrolling up
+        setVisible(true);
+      } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // Scrolling down and past 100px
+        setVisible(false);
+        setOpen(false); // Close mobile menu when hiding
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
   return (
-    <header className="z-50 fixed top-0 left-0 right-0 backdrop-blur-2xl overflow-x-hidden">
+    <header
+      className={`z-50 fixed top-0 left-0 right-0 bg-gradient-to-b from-violet-900/40 to-transparent overflow-x-hidden transition-transform duration-300 ${
+        visible ? "translate-y-0" : "-translate-y-full"
+      }`}
+    >
       <div className="mx-auto max-w-7xl px-4 md:px-6 py-6 flex items-center justify-between">
         {/* Logo/Title */}
         <button
@@ -56,13 +71,8 @@ export default function Navbar({ logo }: Props) {
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-6">
           <Link href="/#about">About</Link>
-          <Link href="/#results">Results</Link>
+          <Link href="/#process">Process</Link>
           <Link href="/pricing">Pricing</Link>
-
-          <select onChange={gotoSelectVal} className="border rounded-md px-3 py-2 bg-white">
-            <option>Scalable Suite</option>
-            <option>Atlas by Scalable</option>
-          </select>
 
           <button
             onClick={() => scrollToId("contact")}
@@ -76,7 +86,7 @@ export default function Navbar({ logo }: Props) {
             data-cta="navbar_request_demo"
             className="bg-indigo-600 text-white px-5 py-3 rounded-full -ml-2 hover:scale-105 transition-all cursor-pointer"
           >
-            Book a call
+            Book a Call
           </button>
         </nav>
 
@@ -107,20 +117,6 @@ export default function Navbar({ logo }: Props) {
             <button className="text-left" onClick={() => router.push("/pricing")}>
               Pricing
             </button>
-
-            <div className="pt-1">
-              <label className="sr-only" htmlFor="suite-select">
-                Scalable Suite
-              </label>
-              <select
-                id="suite-select"
-                onChange={gotoSelectVal}
-                className="border rounded-md px-3 py-2 bg-white w-full"
-              >
-                <option>Scalable Suite</option>
-                <option>Atlas by Scalable</option>
-              </select>
-            </div>
 
             <div className="flex flex-col sm:flex-row gap-3 pt-2">
               <button

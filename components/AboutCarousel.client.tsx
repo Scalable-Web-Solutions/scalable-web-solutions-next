@@ -140,7 +140,7 @@ export default function AboutCarousel({ steps, intervalMs = 5000, hostSelector }
   return (
     <div
       ref={hostRef}
-      className="pointer-events-auto relative z-10 mx-auto max-w-4xl px-6 -mt-[80vh] pt-[80vh] pb-20"
+      className="pointer-events-auto relative z-10 mx-auto max-w-4xl px-6 -mt-[80vh] pt-[80vh] pb-10"
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
     >
