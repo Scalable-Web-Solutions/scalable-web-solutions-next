@@ -82,8 +82,15 @@ const sections = [
       />
       </div>
       <AboutSection/>
-      <SeamlessPager className="w-screen z-0 bg-gray-100" sections={sections} transition="slide" stiffness={0.1} gain={2} releaseOverlapRatio={3}>
-      </SeamlessPager>
+      <SeamlessPager 
+        id="growth-engine-pager"
+        className="w-screen z-0 bg-gray-100" 
+        sections={sections} 
+        transition="slide" 
+        stiffness={0.1} 
+        gain={2} 
+        releaseOverlapRatio={0.3}
+      />
       <ContactSection/>
     </div>
   );

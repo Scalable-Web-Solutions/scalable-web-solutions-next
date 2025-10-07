@@ -42,17 +42,18 @@ function computePriceLabel(billing: Billing, price: number | null) {
     : "per month — total billed annually";
 }
 
-export default function PricingPage({
+export default async function PricingPage({
   searchParams,
 }: {
-  searchParams: { billing?: Billing };
+  searchParams: Promise<{ billing?: Billing }>;
 }) {
+  const resolvedSearchParams = await searchParams;
   const hasAnnual = plan.prices.annually !== null;
 
   // SSR billing selection via query param (defaults to 'monthly')
   const billing: Billing =
-    hasAnnual && (searchParams.billing === "annually" || searchParams.billing === "monthly")
-      ? searchParams.billing
+    hasAnnual && (resolvedSearchParams.billing === "annually" || resolvedSearchParams.billing === "monthly")
+      ? resolvedSearchParams.billing
       : "monthly";
 
   const price =
