@@ -1,15 +1,12 @@
-import Image from "next/image";
 import ShineSplash from "../components/LoadingAnimation";
 import Hero from "../components/Hero";
 import PartnerStrip, { LogoLoop } from "../components/PartnerStrip";
 import AboutSection from "../components/AboutSection.server";
-import ScrollFloat from "../components/ScrollFloat";
 import Research from "../components/engine/Research";
 import Test from "../components/engine/Test";
 import Prove from "../components/engine/Prove";
 import Refine from "../components/engine/Refine";
 import SeamlessPager from "../components/reuasble/SeamlessPager";
-import { Contact } from "lucide-react";
 import ContactSection from "../components/Contact";
 
 export default function Home() {
@@ -89,7 +86,7 @@ const sections = [
         transition="slide" 
         stiffness={0.1} 
         gain={2} 
-        releaseOverlapRatio={0.3}
+        releaseOverlapRatio={3}
       />
       <ContactSection/>
     </div>

@@ -1,4 +1,5 @@
 // app/pricing/page.tsx
+import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Check, Sparkles } from "lucide-react";

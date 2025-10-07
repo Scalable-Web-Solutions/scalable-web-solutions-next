@@ -143,6 +143,7 @@ export default function ShineSplash({
           display: grid;
           place-items: center;
           opacity: 0;
+          visibility: hidden;
           animation: bg-in var(--bg-in) ease forwards,
             bg-out var(--out) ease var(--delay-out) forwards;
           background: ${bgColor};
@@ -151,9 +152,11 @@ export default function ShineSplash({
         @keyframes bg-in {
           from {
             opacity: 0;
+            visibility: hidden;
           }
           to {
             opacity: 1;
+            visibility: visible;
           }
         }
         @keyframes bg-out {
@@ -186,6 +189,9 @@ export default function ShineSplash({
           background-clip: text;
           filter: drop-shadow(0 6px 24px rgba(0, 0, 0, 0.05));
           background-repeat: no-repeat, no-repeat;
+          
+          /* Prevent flash of black text */
+          visibility: hidden;
 
           /* sequence: fade in, shine sweep, fade out */
           opacity: 0;
@@ -198,6 +204,7 @@ export default function ShineSplash({
         @keyframes text-in {
           to {
             opacity: 1;
+            visibility: visible;
           }
         }
         @keyframes text-out {
