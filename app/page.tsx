@@ -86,7 +86,7 @@ const sections = [
         transition="slide" 
         stiffness={0.1} 
         gain={2} 
-        releaseOverlapRatio={3}
+        releaseOverlapRatio={2.6}
       />
       <ContactSection/>
     </div>

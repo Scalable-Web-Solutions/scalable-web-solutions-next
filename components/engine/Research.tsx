@@ -5,11 +5,11 @@ import React from "react";
 export default function Research() {
   return (
     <section className="relative min-h-[100svh] bg-gray-100 flex justify-center items-center overflow-hidden px-4 sm:px-6">
-      <div className="relative w-full max-w-7xl h-[420px] sm:h-[480px] md:h-[540px] px-0 sm:px-4">
+      <div className="relative w-full max-w-7xl min-h-[500px] sm:h-[480px] md:h-[540px] px-0 sm:px-4">
         <div className="absolute inset-0">
-          <div className="grid md:grid-cols-2 grid-cols-1 gap-6 sm:gap-10 md:gap-16 place-items-center h-full">
+          <div className="grid md:grid-cols-2 grid-cols-1 gap-8 sm:gap-10 md:gap-16 place-items-center h-full py-8 md:py-0">
             {/* 3D floating data visualization */}
-            <div className="relative w-full h-[300px] sm:h-[380px] md:h-[500px] perspective-1000">
+            <div className="relative w-full max-w-md mx-auto h-[350px] sm:h-[380px] md:h-[500px] perspective-1000">
               {/* Floating cards */}
               <div
                 className="absolute top-[8%] left-[8%] sm:top-[10%] sm:left-[12%] w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl shadow-2xl transform rotate-12 animate-float"
@@ -83,7 +83,7 @@ export default function Research() {
             </div>
 
             {/* Text */}
-            <div className="text-center md:text-left px-1 sm:px-2">
+            <div className="text-center md:text-left px-4 sm:px-6 md:px-2 max-w-lg mx-auto md:mx-0">
               <div className="inline-block px-3 sm:px-4 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs sm:text-sm font-semibold mb-3 sm:mb-4">
                 Phase 01
               </div>
@@ -109,7 +109,49 @@ export default function Research() {
         </div>
       </div>
 
-      
+      <style jsx>{`
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0px) rotate(var(--rotate));
+          }
+          50% {
+            transform: translateY(-20px) rotate(var(--rotate));
+          }
+        }
+
+        @keyframes dash {
+          0% {
+            stroke-dashoffset: 0;
+          }
+          100% {
+            stroke-dashoffset: 20;
+          }
+        }
+
+        .animate-float {
+          animation: float 3s ease-in-out infinite;
+        }
+
+        .animate-dash {
+          animation: dash 20s linear infinite;
+        }
+
+        .perspective-1000 {
+          perspective: 1000px;
+        }
+
+        div[style*="rotate-12"] {
+          --rotate: -12deg;
+        }
+
+        div[style*="rotate-6"] {
+          --rotate: 6deg;
+        }
+
+        div[style*="rotate(12deg)"] {
+          --rotate: 12deg;
+        }
+      `}</style>
     </section>
   );
 }

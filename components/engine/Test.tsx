@@ -66,7 +66,7 @@ export default function Test() {
             </div>
 
             {/* Text */}
-            <div className="text-center md:text-left px-1 sm:px-2">
+            <div className="text-center md:text-left px-1 sm:px-2 py-10">
               <div className="inline-block px-3 sm:px-4 py-1 bg-purple-100 text-purple-700 rounded-full text-xs sm:text-sm font-semibold mb-3 sm:mb-4">
                 Phase 02
               </div>
