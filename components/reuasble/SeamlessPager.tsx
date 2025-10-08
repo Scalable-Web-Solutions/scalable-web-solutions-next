@@ -58,12 +58,33 @@ export default function SeamlessPager({
   };
   const easeOutPow = (x: number, pow: number) => 1 - Math.pow(1 - clamp(x), pow);
 
+  // Detect motion preferences (kept) and MOBILE (new)
   const prefersReduced = useMemo(
     () =>
       typeof window !== "undefined" &&
       window.matchMedia?.("(prefers-reduced-motion: reduce)").matches,
     []
   );
+
+  // Mobile detection: coarse pointer is a reliable proxy
+  const [isMobile, setIsMobile] = useState<boolean>(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return false;
+    return window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+  });
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return;
+    const mq = window.matchMedia("(hover: none) and (pointer: coarse)");
+    const onChange = () => setIsMobile(mq.matches);
+    mq.addEventListener?.("change", onChange);
+    // Fallback for older Safari
+    // @ts-ignore
+    mq.addListener?.(onChange);
+    return () => {
+      mq.removeEventListener?.("change", onChange);
+      // @ts-ignore
+      mq.removeListener?.(onChange);
+    };
+  }, []);
 
   // Measure absolute document Y of the section top
   useEffect(() => {
@@ -123,7 +144,7 @@ export default function SeamlessPager({
         const deadzonePx = h * enterDeadzoneRatio;
         engageStartRef.current = y - previewLinear * h - deadzonePx;
 
-        // Don't snap progress; keep fractional continuity for smooth animation
+        // Keep fractional continuity
         targetRef.current = previewLinear;
         smoothRef.current = previewLinear;
         setProgress(previewLinear);
@@ -165,7 +186,6 @@ export default function SeamlessPager({
           setProgress(0);
         } else {
           // Inside vertical span but not in the enter band → show PREVIEW frame
-          // Keep fractional progress internally to avoid jumps when engage flips on.
           targetRef.current = previewLinear;
           smoothRef.current = previewLinear;
           setProgress(previewLinear);
@@ -191,25 +211,29 @@ export default function SeamlessPager({
     phaseCurve,
   ]);
 
-  // rAF smoothing
+  // rAF smoothing — DISABLED on mobile (instant snaps)
   useEffect(() => {
     const tick = () => {
       const target = targetRef.current;
-      if (prefersReduced) {
+
+      if (isMobile || prefersReduced) {
+        // No animation: snap immediately
         if (smoothRef.current !== target) {
           smoothRef.current = target;
           setProgress(target);
         }
       } else {
+        // Desktop: keep lerp
         smoothRef.current += (target - smoothRef.current) * stiffness;
         if (Math.abs(smoothRef.current - target) < 0.0005) smoothRef.current = target;
         setProgress(smoothRef.current);
       }
+
       rafRef.current = requestAnimationFrame(tick);
     };
     rafRef.current = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(rafRef.current);
-  }, [prefersReduced, stiffness]);
+  }, [prefersReduced, stiffness, isMobile]);
 
   // Indices + tween
   const idx = Math.floor(progress);
@@ -219,7 +243,6 @@ export default function SeamlessPager({
 
   // Heights (match early-release distance)
   const engagedVh = Math.max(100, N * 100 - releaseOverlapRatio * 100);
-  // After disengaging at the bottom, keep the full pager height to prevent jump
   const isAtEnd = !engaged && progress >= N - 1 - 1e-6;
   const spacerHeight = engaged ? `${engagedVh}vh` : (isAtEnd ? `${engagedVh}vh` : "100vh");
 
@@ -246,19 +269,24 @@ export default function SeamlessPager({
     gap: gapPx,
   };
 
-  // Visual tweening
+  // Visual tweening — DISABLED on mobile (render a single layer only)
   let aOpacity = 1, bOpacity = 0, aTransform = "translateY(0px)", bTransform = "translateY(0px)";
-  if (transition === "fade") {
-    aOpacity = 1 - t;
-    bOpacity = t;
-  } else if (transition === "slide") {
-    const slide = 60;
-    const opacityT = Math.pow(t, 2.5); // steep ease-in for incoming
-    aOpacity = Math.max(0, 1 - t * 1.2);
-    bOpacity = Math.min(1, opacityT);
-    aTransform = `translateY(${-t * slide}px)`;
-    bTransform = `translateY(${(1 - t) * 20}px)`;
+  if (!isMobile) {
+    if (transition === "fade") {
+      aOpacity = 1 - t;
+      bOpacity = t;
+    } else if (transition === "slide") {
+      const slide = 60;
+      const opacityT = Math.pow(t, 2.5); // steep ease-in for incoming
+      aOpacity = Math.max(0, 1 - t * 1.2);
+      bOpacity = Math.min(1, opacityT);
+      aTransform = `translateY(${-t * slide}px)`;
+      bTransform = `translateY(${(1 - t) * 20}px)`;
+    }
   }
+
+  // On mobile we render only the nearest section, no crossfade/slide at all.
+  const mobileIndex = Math.min(N - 1, Math.max(0, Math.round(progress)));
 
   return (
     <section
@@ -268,14 +296,20 @@ export default function SeamlessPager({
       style={{ position: "relative", ...(overscrollContain ? { overscrollBehaviorY: "contain" as any } : null) }}
     >
       <div style={stickyStyle}>
-        {!engaged ? (
-          // Static preview frame (we still keep fractional progress internally)
+        {isMobile ? (
+          // MOBILE: single static layer (no animations)
+          <div style={{ ...layerBase, opacity: 1, transform: "none" }}>
+            <div style={innerWrap}>{sections[mobileIndex]}</div>
+          </div>
+        ) : !engaged ? (
+          // Desktop preview frame
           <div style={{ ...layerBase, opacity: 1, transform: "none" }}>
             <div style={innerWrap}>
               {sections[Math.min(N - 1, Math.max(0, Math.round(progress)))]}
             </div>
           </div>
         ) : (
+          // Desktop animated crossfade/slide
           <>
             {/* Outgoing */}
             <div
