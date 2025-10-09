@@ -76,7 +76,7 @@ export default async function PricingPage({
         {/* Hero */}
         <section className="text-center">
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-            Simple, transparent{" "}
+            Simple, flat-rate{" "}
             <span className="bg-gradient-to-r from-[#32155c] via-[#c870ff] to-[#32155c] text-transparent bg-clip-text">
               pricing
             </span>
@@ -86,7 +86,7 @@ export default async function PricingPage({
             <b>deep</b> analytics.
             <br />
             <b>Cancel anytime</b>, <b>no hidden fees</b>, and{" "}
-            <b>dedicated account manager</b>.
+            <b>a dedicated account manager</b>.
           </p>
 
           {/* Billing toggle (SSR via links) */}
@@ -122,7 +122,7 @@ export default async function PricingPage({
         </section>
 
         {/* Single pricing card */}
-        <section className="mt-12">
+        <section className="mt-12 max-w-3xl mx-auto">
           <article
             className={`group relative rounded-3xl p-[1px] ${
               plan.highlight
