@@ -1,6 +1,6 @@
 
 "use client"
-import router, { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { FC } from "react";
 
 export const HeroButton: FC = () => {
