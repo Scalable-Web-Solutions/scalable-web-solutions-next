@@ -51,7 +51,7 @@ export default function Navbar({ logo }: Props) {
 
   return (
     <header
-      className={`z-50 fixed top-0 left-0 right-0 bg-gradient-to-b from-violet-900/40 to-transparent overflow-x-hidden transition-transform duration-300 ${visible ? "translate-y-0" : "-translate-y-full"
+      className={`z-50 fixed top-0 left-0 right-0 bg-gradient-to-b from-[#0B0D14]/90 via-[#0B0D14]/60 to-transparent backdrop-blur-sm overflow-x-hidden transition-transform duration-300 ${visible ? "translate-y-0" : "-translate-y-full"
         }`}
     >
       <div className="mx-auto max-w-7xl px-4 md:px-6 py-6 flex items-center justify-between">
@@ -62,28 +62,28 @@ export default function Navbar({ logo }: Props) {
           aria-label="Go to home"
         >
           <img src={logo} className="w-10 h-10 rounded-lg flex-shrink-0" alt="Scalable logo" />
-          <span className="text-3xl md:text-5xl truncate bg-gradient-to-b from-[#131313] to-[#5f5f5f] text-transparent bg-clip-text">
+          <span className="text-3xl md:text-5xl truncate bg-gradient-to-b from-white to-gray-300 text-transparent bg-clip-text">
             Scalable
           </span>
         </button>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-6">
-          <Link href="/#about">About</Link>
-          <Link href="/#process">Process</Link>
-          <Link href="/pricing">Pricing</Link>
+        <nav className="hidden md:flex items-center gap-6 text-gray-200">
+          <Link href="/#about" className="hover:text-white transition-colors">About</Link>
+          <Link href="/#process" className="hover:text-white transition-colors">Process</Link>
+          <Link href="/pricing" className="hover:text-white transition-colors">Pricing</Link>
 
           <button
             onClick={() => scrollToId("contact")}
             data-cta="navbar_contact_us"
-            className="bg-[#1D2939] text-white px-5 py-3 rounded-full hover:scale-105 transition-all cursor-pointer"
+            className="bg-gray-800 hover:bg-gray-700 text-white px-5 py-3 rounded-full hover:scale-105 transition-all cursor-pointer border border-gray-600"
           >
             Contact Us
           </button>
           <button
             onClick={() => scrollToId("contact")}
             data-cta="navbar_request_demo"
-            className="bg-indigo-600 text-white px-5 py-3 rounded-full -ml-2 hover:scale-105 transition-all cursor-pointer"
+            className="bg-[#c870ff] hover:bg-[#b55eef] text-white px-5 py-3 rounded-full -ml-2 hover:scale-105 transition-all cursor-pointer"
           >
             Book a Call
           </button>
@@ -91,7 +91,7 @@ export default function Navbar({ logo }: Props) {
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden inline-flex items-center justify-center p-2 rounded-lg flex-shrink-0"
+          className="md:hidden inline-flex items-center justify-center p-2 rounded-lg flex-shrink-0 text-gray-200 hover:text-white transition-colors"
           aria-label="Toggle menu"
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
@@ -106,27 +106,27 @@ export default function Navbar({ logo }: Props) {
         style={{ maxHeight: open ? 500 : 0, opacity: open ? 1 : 0 }}
       >
         <div className="mx-auto max-w-7xl px-6 pb-6">
-          <div className="flex flex-col gap-4 bg-white/80 backdrop-blur rounded-2xl p-5 shadow-sm border border-gray-200">
-            <button className="text-left" onClick={() => scrollToId("results")}>
+          <div className="flex flex-col gap-4 bg-gray-900/90 backdrop-blur rounded-2xl p-5 shadow-lg border border-gray-700">
+            <button className="text-left text-gray-200 hover:text-white transition-colors" onClick={() => scrollToId("results")}>
               Results
             </button>
-            <button className="text-left" onClick={() => scrollToId("about")}>
+            <button className="text-left text-gray-200 hover:text-white transition-colors" onClick={() => scrollToId("about")}>
               About
             </button>
-            <button className="text-left" onClick={() => router.push("/pricing")}>
+            <button className="text-left text-gray-200 hover:text-white transition-colors" onClick={() => router.push("/pricing")}>
               Pricing
             </button>
 
             <div className="flex flex-col sm:flex-row gap-3 pt-2">
               <button
                 onClick={() => scrollToId("contact")}
-                className="bg-[#1D2939] text-white px-5 py-3 rounded-full w-full sm:w-auto"
+                className="bg-gray-800 hover:bg-gray-700 text-white px-5 py-3 rounded-full w-full sm:w-auto border border-gray-600"
               >
                 Contact Us
               </button>
               <button
                 onClick={() => scrollToId("contact")}
-                className="bg-gray-200 text-black px-5 py-3 rounded-full w-full sm:w-auto sm:-ml-2"
+                className="bg-[#c870ff] hover:bg-[#b55eef] text-white px-5 py-3 rounded-full w-full sm:w-auto sm:-ml-2"
               >
                 Request a Demo
               </button>

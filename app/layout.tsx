@@ -4,6 +4,10 @@ import "./globals.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import sws from '@/public/sws.png'
+import Lenis from "lenis";
+import { ScrollTrigger } from "gsap/all";
+import gsap from "gsap";
+import SmoothScroll from "@/components/SmoothScroll";
 
 const poppins = Poppins({
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
@@ -35,16 +39,21 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default function RootLayout(
+  
+{
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>) 
+
+{
   return (
     <html className={poppins.variable} lang="en">
       <body
-        className={`${poppins.className} antialiased`}
+        className={`${poppins.className} antialiased bg-[#0B0D14]`}
       >
+        <SmoothScroll/>
         <Navbar logo={sws.src} />
         {children}
         <Footer />

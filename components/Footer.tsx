@@ -21,14 +21,14 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="relative z-20 bg-gray-50 py-10 text-center">
+    <footer className="relative z-20 bg-[#0B0D14] py-10 text-center">
       {/* Social links */}
-      <div className="flex justify-center items-center gap-4 mb-10 text-gray-700 text-sm sm:text-base">
+      <div className="flex justify-center items-center gap-4 mb-10 text-gray-400 text-sm sm:text-base">
         <a
           href="https://github.com/Scalable-Web-Solutions"
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:text-gray-900 transition-colors"
+          className="hover:text-white transition-colors"
         >
           GitHub
         </a>
@@ -36,7 +36,7 @@ export default function Footer() {
           href="https://www.linkedin.com/company/scalable-web-solutions"
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:text-gray-900 transition-colors"
+          className="hover:text-white transition-colors"
         >
           LinkedIn
         </a>
@@ -44,7 +44,7 @@ export default function Footer() {
           href="https://www.instagram.com/scalablewebsolutions/"
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:text-gray-900 transition-colors"
+          className="hover:text-white transition-colors"
         >
           Instagram
         </a>

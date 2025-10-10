@@ -28,7 +28,6 @@ const CHIP_OPTIONS = [
 ] as const;
 
 export default function ContactSection({ email = DEFAULT_EMAIL }: Props) {
-  // chips
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const toggleChip = useCallback((c: string) => {
     setSelected((prev) => {
@@ -38,17 +37,15 @@ export default function ContactSection({ email = DEFAULT_EMAIL }: Props) {
     });
   }, []);
 
-  // copy toast
   const [copied, setCopied] = useState(false);
   const copyEmail = useCallback(async () => {
     try {
       await navigator.clipboard.writeText(email);
       setCopied(true);
       setTimeout(() => setCopied(false), 1200);
-    } catch {}
+    } catch { }
   }, [email]);
 
-  // mailto: subject/body
   const selectedList = useMemo(() => Array.from(selected), [selected]);
 
   const subject = useMemo(
@@ -187,20 +184,20 @@ Thanks!`;
   );
 
   return (
-    <section id="contact" className="relative z-[10000] w-full bg-gray-50 py-10">
+    <section id="contact" className="relative z-[10000] w-full bg-[#0B0D14] py-10">
       {/* Content */}
       <div className="mx-auto max-w-7xl px-6 py-12 md:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-[1.1fr] gap-8">
-          <div className="rounded-2xl backdrop-blur p-6 md:p-8 bg-white/0">
+          <div className="rounded-2xl backdrop-blur p-6 md:p-8 bg-gray-900/20 border border-gray-700/30">
             <div className="flex items-start justify-between gap-6">
               <div>
-                <h2 className="text-4xl md:text-5xl font-medium">Contact Us</h2>
-                <p className="mt-2 text-gray-700">
+                <h2 className="text-4xl md:text-5xl font-medium text-white">Contact Us</h2>
+                <p className="mt-2 text-gray-300">
                   One click and we'll take it from there. Avg reply time:{" "}
-                  <span className="font-medium">~1 hour</span>.
+                  <span className="font-medium text-white">~1 hour</span>.
                 </p>
               </div>
-              <div className="hidden md:flex items-center gap-2 rounded-full bg-indigo-50 text-indigo-700 px-3 py-1 text-sm">
+              <div className="hidden md:flex items-center gap-2 rounded-full bg-emerald-900/30 text-emerald-300 px-3 py-1 text-sm border border-emerald-700/30">
                 <ShieldCheck className="w-4 h-4" /> No spam. Ever.
               </div>
             </div>
@@ -208,7 +205,7 @@ Thanks!`;
             {/* Primary CTAs */}
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
               <a
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-gray-900 text-white px-6 py-4 font-medium hover:bg-gray-800 active:scale-[0.99] transition"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-gray-800 text-white px-6 py-4 font-medium hover:bg-gray-700 active:scale-[0.99] transition border border-gray-600"
                 href={mailtoHref}
                 data-cta="contact_email_oneclick"
                 aria-label="Email us"
@@ -218,7 +215,7 @@ Thanks!`;
 
               <button
                 type="button"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-indigo-600 text-white px-6 py-4 font-medium hover:bg-indigo-500 active:scale-[0.99] transition"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#c870ff] text-white px-6 py-4 font-medium hover:bg-[#b55eef] active:scale-[0.99] transition"
                 onClick={openModal}
                 data-cta="contact_book_consult"
                 aria-haspopup="dialog"
@@ -230,18 +227,18 @@ Thanks!`;
 
             {/* Copy row */}
             <div className="mt-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-              <div className="flex-1 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-gray-800">
+              <div className="flex-1 rounded-xl border border-gray-600 bg-gray-800/50 px-4 py-3 text-gray-200">
                 {email}
               </div>
               <button
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-gray-300 bg-white px-4 py-3 hover:bg-gray-50 active:scale-[0.99] transition"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-gray-600 bg-gray-800/30 text-gray-200 px-4 py-3 hover:bg-gray-700/50 active:scale-[0.99] transition"
                 onClick={copyEmail}
                 data-cta="contact_copy_email"
                 aria-live="polite"
               >
                 {copied ? (
                   <>
-                    <Check className="w-4 h-4 text-green-600" /> Copied
+                    <Check className="w-4 h-4 text-emerald-400" /> Copied
                   </>
                 ) : (
                   <>
@@ -257,14 +254,14 @@ Thanks!`;
       {/* CALENDAR MODAL */}
       {open && (
         <div
-          className="fixed inset-0 z-[100000] bg-white/90 backdrop-blur-sm flex items-center justify-center p-0 sm:p-6"
+          className="fixed inset-0 z-[100000] bg-black/60 backdrop-blur-sm flex items-center justify-center p-0 sm:p-6"
           role="dialog"
           aria-modal="true"
           onClick={onBackdropClick}
         >
-          <div className="relative w-full h-full sm:h-[400px] sm:max-w-4xl bg-white sm:rounded-2xl shadow-2xl overflow-hidden flex flex-col">
+          <div className="relative w-full h-full sm:h-[400px] sm:max-w-4xl bg-white sm:rounded-2xl shadow-2xl overflow-hidden flex flex-col border border-gray-200">
             <button
-              className="absolute top-3 right-3 inline-flex items-center gap-2 bg-neutral-900 px-3 py-2 rounded-md text-white hover:bg-neutral-800 z-10"
+              className="absolute top-3 right-3 inline-flex items-center gap-2 bg-gray-900 px-3 py-2 rounded-md text-white hover:bg-gray-800 z-10"
               onClick={closeModal}
               aria-label="Close"
             >
@@ -285,7 +282,7 @@ Thanks!`;
                         className={[
                           "px-3 py-1.5 rounded-full text-xs whitespace-nowrap border",
                           active
-                            ? "bg-indigo-600 text-white border-indigo-600"
+                            ? "bg-[#c870ff] text-white border-[#c870ff]"
                             : "bg-white text-gray-800 border-gray-300 hover:bg-gray-50",
                         ].join(" ")}
                       >
@@ -321,7 +318,7 @@ Thanks!`;
                   className={[
                     "ml-auto inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-medium",
                     selectedDate && selectedTime
-                      ? "bg-indigo-600 text-white hover:bg-indigo-500"
+                      ? "bg-[#c870ff] text-white hover:bg-[#b55eef]"
                       : "bg-gray-200 text-gray-500 cursor-not-allowed",
                   ].join(" ")}
                   aria-disabled={!selectedDate || !selectedTime}
