@@ -1,15 +1,9 @@
 import ShineSplash from "../components/LoadingAnimation";
 import Hero from "../components/Hero";
-import Research from "../components/engine/Research";
-import Test from "../components/engine/Test";
-import Prove from "../components/engine/Prove";
-import Refine from "../components/engine/Refine";
-import SeamlessPager from "../components/reuasble/SeamlessPager";
 import ContactSection from "../components/Contact";
 import ProcessSection from "@/components/ProcessSection";
 import { Book, FlaskConical, Globe, Repeat, Search, ShieldCheck, Users } from "lucide-react";
 import PartnerLogos from "@/components/PartnerLogos";
-import { link } from "fs";
 
 export default function Home() {
 
@@ -50,13 +44,6 @@ export default function Home() {
       title: 'Big Commerce',
       description: "big"
     }
-  ];
-
-  const sections = [
-    <Research key="0" />,
-    <Test key="1" />,
-    <Prove key="2" />,
-    <Refine key="3" />,
   ];
 
   return (

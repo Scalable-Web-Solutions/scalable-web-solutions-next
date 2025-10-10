@@ -69,20 +69,17 @@ export default function Navbar({ logo }: Props) {
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-6 text-gray-200">
-          <Link href="/#about" className="hover:text-white transition-colors">About</Link>
           <Link href="/#how-we-do-it" className="hover:text-white transition-colors">Process</Link>
           <Link href="/pricing" className="hover:text-white transition-colors">Pricing</Link>
 
           <button
             onClick={() => scrollToId("contact")}
-            data-cta="navbar_contact_us"
             className="bg-gray-800 hover:bg-gray-700 text-white px-5 py-3 rounded-full hover:scale-105 transition-all cursor-pointer border border-gray-600"
           >
             Contact Us
           </button>
           <button
             onClick={() => scrollToId("contact")}
-            data-cta="navbar_request_demo"
             className="bg-[#c870ff] hover:bg-[#b55eef] text-white px-5 py-3 rounded-full -ml-2 hover:scale-105 transition-all cursor-pointer"
           >
             Book a Call
