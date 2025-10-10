@@ -40,7 +40,7 @@ export default function Home() {
     },
     {
       image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQdGKVSorFbqB6xbrzYz3Zvueic3pWjIqhT_XqoYZWyaGWFTMOM_RF_IXF4MFteMDNf1s&usqp=CAU',
-      link: 'bigcommerce.com',
+      link: 'https://bigcommerce.com',
       title: 'Big Commerce',
       description: "big"
     }
