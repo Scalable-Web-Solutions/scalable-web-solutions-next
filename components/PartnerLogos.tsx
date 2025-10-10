@@ -11,7 +11,7 @@ type Item = {
 
 export default function PartnerLogos({ items }: { items: Item[] }) {
     return (
-        <section className="bg-[#0B0D14]">
+        <section className="bg-[#13161f]">
             <div className="mx-auto max-w-6xl px-6 py-16">
                 <div className="mx-auto mb-10 flex w-full flex-col items-center text-center">
                     <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-white/80">

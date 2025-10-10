@@ -21,7 +21,7 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="relative z-20 bg-[#0B0D14] py-10 text-center">
+    <footer className="relative z-20 bg-[#13161f] py-10 text-center">
       {/* Social links */}
       <div className="flex justify-center items-center gap-4 mb-10 text-gray-400 text-sm sm:text-base">
         <a
