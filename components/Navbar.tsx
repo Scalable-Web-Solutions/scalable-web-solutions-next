@@ -70,7 +70,7 @@ export default function Navbar({ logo }: Props) {
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-6 text-gray-200">
           <Link href="/#about" className="hover:text-white transition-colors">About</Link>
-          <Link href="/#process" className="hover:text-white transition-colors">Process</Link>
+          <Link href="/#how-we-do-it" className="hover:text-white transition-colors">Process</Link>
           <Link href="/pricing" className="hover:text-white transition-colors">Pricing</Link>
 
           <button
