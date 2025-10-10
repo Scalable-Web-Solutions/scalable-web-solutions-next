@@ -38,11 +38,11 @@ export default function ShineSplash({
   autoHide = true,
 
   // visuals
-  bgColor = "#0B0D14",
+  bgColor = "#12161D",
   fontSize = "clamp(75px, 15vw, 260px)",
   fontWeight = 500,
   letterSpacing = "0em",
-  textGradient = "linear-gradient(to right, #ffffff, #c870ff, #ffffff)",
+  textGradient = "linear-gradient(to right, #32155c, #c870ff, #32155c)",
   shineIntensity = 0.95, // not directly used—parity with Svelte API
   shineWidth = 30,
 
@@ -143,7 +143,6 @@ export default function ShineSplash({
           display: grid;
           place-items: center;
           opacity: 0;
-          visibility: hidden;
           animation: bg-in var(--bg-in) ease forwards,
             bg-out var(--out) ease var(--delay-out) forwards;
           background: ${bgColor};
@@ -152,11 +151,9 @@ export default function ShineSplash({
         @keyframes bg-in {
           from {
             opacity: 0;
-            visibility: hidden;
           }
           to {
             opacity: 1;
-            visibility: visible;
           }
         }
         @keyframes bg-out {
@@ -173,12 +170,12 @@ export default function ShineSplash({
           margin: 0;
           line-height: 1;
           color: transparent;
-          /* two-layer background: moving bright "slice" + static gradient fill */
+          /* two-layer background: moving white "slice" + static gradient fill */
           background-image: linear-gradient(
               var(--shine-angle),
               rgba(255, 255, 255, 0) 0%,
               rgba(255, 255, 255, 0) 40%,
-              rgba(255, 255, 255, 0.9) 50%,
+              rgba(255, 255, 255, 0.95) 50%,
               rgba(255, 255, 255, 0) 60%,
               rgba(255, 255, 255, 0) 100%
             ),
@@ -187,11 +184,8 @@ export default function ShineSplash({
           background-position: -35% 0, center;
           -webkit-background-clip: text;
           background-clip: text;
-          filter: drop-shadow(0 6px 24px rgba(200, 112, 255, 0.3));
+          filter: drop-shadow(0 6px 24px rgba(0, 0, 0, 0.05));
           background-repeat: no-repeat, no-repeat;
-          
-          /* Prevent flash of black text */
-          visibility: hidden;
 
           /* sequence: fade in, shine sweep, fade out */
           opacity: 0;
@@ -204,7 +198,6 @@ export default function ShineSplash({
         @keyframes text-in {
           to {
             opacity: 1;
-            visibility: visible;
           }
         }
         @keyframes text-out {
