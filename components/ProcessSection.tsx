@@ -236,6 +236,13 @@ export default function ProcessSection({
                 { strokeDashoffset: 120 },
                 { strokeDashoffset: 0, duration: 1.2, ease: "power1.out" }
               );
+            },
+            onEnterBack: () => {
+              highlight(i);
+              gsap.fromTo(slide.querySelector('#flow'),
+                { strokeDashoffset: 120 },
+                { strokeDashoffset: 0, duration: 1.2, ease: "power1.out" }
+              );
             }
           });
         });
