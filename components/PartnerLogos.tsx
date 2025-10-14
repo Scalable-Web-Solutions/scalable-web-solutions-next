@@ -1,6 +1,6 @@
 "use client";
 
-
+import { useState } from "react";
 
 type Item = {
     image: string;
@@ -10,6 +10,7 @@ type Item = {
 };
 
 export default function PartnerLogos({ items }: { items: Item[] }) {
+    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     return (
         <section className="bg-[#13161f]">
             <div className="mx-auto max-w-6xl px-6 py-16">
@@ -27,7 +28,7 @@ export default function PartnerLogos({ items }: { items: Item[] }) {
                 </div>
 
                 <ul className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-                    {items.map((i) => (
+                    {items.map((i, index) => (
                         <li key={i.title} className="flex items-center justify-center">
                             <a
                                 href={i.link}
@@ -42,22 +43,44 @@ export default function PartnerLogos({ items }: { items: Item[] }) {
                                 "
                                 aria-label={i.title}
                                 title={i.description ?? i.title}
+                                onMouseEnter={() => setHoveredIndex(index)}
+                                onMouseLeave={() => setHoveredIndex(null)}
                             >
                                 <img
                                     src={i.image}
                                     alt={i.title}
-                                    className="
-                                    size-[100px] max-w-full object-contain
-                                    grayscale opacity-60
-                                    transition-all duration-200
-                                    group-hover:opacity-90 group-hover:grayscale-0 group-hover:scale-110
-                                  "
+                                    className={`
+                                        size-[100px] max-w-full object-contain
+                                        opacity-60 transition-all duration-200
+                                        group-hover:opacity-90 group-hover:scale-110
+                                        ${hoveredIndex === index ? 'animate-pulse-grayscale' : ''}
+                                    `}
+                                    style={{
+                                        filter: hoveredIndex === index ? undefined : 'grayscale(1)'
+                                    }}
                                 />
                             </a>
                         </li>
                     ))}
                 </ul>
             </div>
+
+            <style dangerouslySetInnerHTML={{
+                __html: `
+                    @keyframes pulse-grayscale {
+                        0%, 100% { 
+                            filter: grayscale(1);
+                        }
+                        50% { 
+                            filter: grayscale(0);
+                        }
+                    }
+                    
+                    .animate-pulse-grayscale {
+                        animation: pulse-grayscale 1.5s ease-in-out infinite;
+                    }
+                `
+            }} />
         </section>
     );
 }
